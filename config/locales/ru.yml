@@ -1,2 +1,9 @@
 ru:
-  my_label: "My label"
+  project_module_overview: "Обзор"
+
+  permission_wiki: "Вики"
+  permission_wall: "Стена"
+  permission_activity: "Действия"
+  permission_roadmap: "оперативный план"
+  permission_members: "Участники"
+  permission_latest_news: "Новости"

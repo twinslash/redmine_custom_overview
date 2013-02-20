@@ -1,2 +1,9 @@
 en:
-  my_label: "My label"
+  project_module_overview: "Overview"
+
+  permission_wiki: "Wiki"
+  permission_wall: "Wall"
+  permission_activity: "Activity"
+  permission_roadmap: "Roadmap"
+  permission_members: "Members"
+  permission_latest_news: "Latest news"

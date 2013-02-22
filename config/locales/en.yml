@@ -1,9 +1,9 @@
 en:
   project_module_overview: "Overview"
 
-  permission_wiki: "Wiki"
-  permission_wall: "Wall"
-  permission_activity: "Activity"
-  permission_roadmap: "Roadmap"
-  permission_members: "Members"
-  permission_latest_news: "Latest news"
+  permission_custom_overview_wiki: "Wiki"
+  permission_custom_overview_wall: "Wall"
+  permission_custom_overview_activity: "Activity"
+  permission_custom_overview_roadmap: "Roadmap"
+  permission_custom_overview_members: "Members"
+  permission_custom_overview_latest_news: "Latest news"

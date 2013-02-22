@@ -9,11 +9,11 @@ Redmine::Plugin.register :redmine_custom_overview do
   author_url  'http://twinslash.com'
 
   project_module :overview do
-    permission :wiki, { :wiki => nil }
-    permission :wall, { :wall => nil }
-    permission :activity, { :activity => nil }
-    permission :roadmap, { :roadmap => nil }
-    permission :members, { :members => nil }
-    permission :latest_news, { :latest_news => nil }
+    permission :custom_overview_wiki, { :custom_overview_wiki => nil }
+    permission :custom_overview_wall, { :custom_overview_wall => nil }
+    permission :custom_overview_activity, { :custom_overview_activity => nil }
+    permission :custom_overview_roadmap, { :custom_overview_roadmap => nil }
+    permission :custom_overview_members, { :custom_overview_members => nil }
+    permission :custom_overview_latest_news, { :custom_overview_latest_news => nil }
   end
 end

@@ -1,9 +1,9 @@
 ru:
   project_module_overview: "Обзор"
 
-  permission_wiki: "Вики"
-  permission_wall: "Стена"
-  permission_activity: "Действия"
-  permission_roadmap: "оперативный план"
-  permission_members: "Участники"
-  permission_latest_news: "Новости"
+  permission_custom_overview_wiki: "Вики"
+  permission_custom_overview_wall: "Стена"
+  permission_custom_overview_activity: "Действия"
+  permission_custom_overview_roadmap: "Оперативный план"
+  permission_custom_overview_members: "Участники"
+  permission_custom_overview_latest_news: "Новости"

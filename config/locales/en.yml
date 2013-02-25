@@ -3,7 +3,6 @@ en:
 
   permission_custom_overview_wiki: "Wiki"
   permission_custom_overview_wall: "Wall"
-  permission_custom_overview_activity: "Activity"
   permission_custom_overview_roadmap: "Roadmap"
   permission_custom_overview_members: "Members"
   permission_custom_overview_latest_news: "Latest news"

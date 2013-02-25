@@ -1,1 +1,3 @@
-<%= @wiki %>
+<div class="custom-overview wiki">
+  <%= render(:partial => "wiki/content", :locals => {:content => @content}) %>
+</div>

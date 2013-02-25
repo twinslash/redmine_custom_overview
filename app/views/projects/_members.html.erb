@@ -1,6 +1,6 @@
 <div class="custom-overview members">
   <% if @users_by_role.any? %>
-    <div class="members box">
+    <div>
       <h3><%=l(:label_member_plural)%></h3>
       <p>
         <% @users_by_role.keys.sort.each do |role| %>

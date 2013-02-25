@@ -7,7 +7,7 @@ module CustomOverview
       base.class_eval do
         # TODO maybe skip some filters to make loading faster
 
-        # helper :versions
+        helper :versions
 
         def show
           [:wiki, :wall, :roadmap, :members, :latest_news, :spent_time].each do |permission|
@@ -23,6 +23,9 @@ module CustomOverview
       private
 
       def load_wiki
+        @wiki = @project.wiki
+        @page = @wiki.find_page('Overview') || @wiki.find_page('overview')
+        @content = @page.content
       end
 
       def load_wall

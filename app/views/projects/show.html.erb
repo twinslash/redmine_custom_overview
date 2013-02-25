@@ -1,3 +1,10 @@
 <% [:wiki, :wall, :activity, :roadmap, :members, :latest_news].each do |permission| %>
   <%= render :partial => permission.to_s if User.current.allowed_to?(:"custom_overview_#{permission}", @project) %>
 <% end %>
+
+<% content_for :sidebar do %>
+  <% [:spent_time].each do |permission| %>
+    <%= render :partial => permission.to_s if User.current.allowed_to?(:"custom_overview_#{permission}", @project) %>
+  <% end %>
+<% end %>
+

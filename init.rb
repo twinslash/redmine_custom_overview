@@ -15,5 +15,6 @@ Redmine::Plugin.register :redmine_custom_overview do
     permission :custom_overview_roadmap, { :custom_overview_roadmap => nil }
     permission :custom_overview_members, { :custom_overview_members => nil }
     permission :custom_overview_latest_news, { :custom_overview_latest_news => nil }
+    permission :custom_overview_spent_time, { :custom_overview_spent_time => nil }
   end
 end

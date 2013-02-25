@@ -8,7 +8,7 @@ module CustomOverview
         # TODO maybe skip some filters to make loading faster
 
         def show
-          [:wiki, :wall, :activity, :roadmap, :members, :latest_news].each do |permission|
+          [:wiki, :wall, :activity, :roadmap, :members, :latest_news, :spent_time].each do |permission|
             send("load_#{permission}") if User.current.allowed_to?(:"custom_overview_#{permission}", @project)
           end
         end
@@ -42,6 +42,14 @@ module CustomOverview
 
       def load_latest_news
         @latest_news = 'load_latest_news'
+      end
+
+      def load_spent_time
+        # calculate total_hours
+        if User.current.allowed_to?(:view_time_entries, @project)
+          cond = @project.project_condition(Setting.display_subprojects_issues?)
+          @total_hours = TimeEntry.visible.sum(:hours, :include => :project, :conditions => cond).to_f
+        end
       end
 
     end

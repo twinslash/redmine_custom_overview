@@ -27,6 +27,26 @@ module CustomOverview
       end
 
       def load_activity
+
+        @days = Setting.activity_days_default.to_i
+
+        @date_to ||= Date.today + 1
+        @date_from = @date_to - @days
+        @with_subprojects = Setting.display_subprojects_issues?
+        @author = nil
+
+        @activity = Redmine::Activity::Fetcher.new(User.current, :project => @project,
+                                                                 :with_subprojects => @with_subprojects,
+                                                                 :author => @author)
+        @activity.scope_select {|t| !params["show_#{t}"].nil?}
+        @activity.scope = :default if @activity.scope.empty?
+
+        events = @activity.events(@date_from, @date_to)
+
+        if events.empty? || stale?(:etag => [@activity.scope, @date_to, @date_from, @with_subprojects, @author, events.first, events.size, User.current, current_language])
+          @events_by_day = events.group_by {|event| User.current.time_to_date(event.event_datetime)}
+        end
+
       end
 
       def load_roadmap

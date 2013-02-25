@@ -21,27 +21,23 @@ module CustomOverview
       private
 
       def load_wiki
-        @wiki = 'load_wiki'
       end
 
       def load_wall
-        @wall = 'load_wall'
       end
 
       def load_activity
-        @activity = 'load_activity'
       end
 
       def load_roadmap
-        @roadmap = 'load_roadmap'
       end
 
       def load_members
-        @members = 'load_members'
+        @users_by_role = @project.users_by_role
       end
 
       def load_latest_news
-        @latest_news = 'load_latest_news'
+        @news = @project.news.find(:all, :limit => 5, :include => [ :author, :project ], :order => "#{News.table_name}.created_on DESC")
       end
 
       def load_spent_time

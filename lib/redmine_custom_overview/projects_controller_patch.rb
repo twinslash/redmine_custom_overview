@@ -10,7 +10,7 @@ module CustomOverview
         helper :versions
 
         def show
-          [:wiki, :wall, :roadmap, :members, :latest_news, :spent_time].each do |permission|
+          [:wiki, :roadmap, :members, :latest_news, :spent_time].each do |permission|
             send("load_#{permission}") if User.current.allowed_to?(:"custom_overview_#{permission}", @project)
           end
         end
@@ -26,9 +26,6 @@ module CustomOverview
         @wiki = @project.wiki
         @page = @wiki.find_page('Overview') || @wiki.find_page('overview')
         @content = @page.content
-      end
-
-      def load_wall
       end
 
       def load_roadmap

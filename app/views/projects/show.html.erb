@@ -1,4 +1,4 @@
-<% [:wiki, :wall, :roadmap].each do |permission| %>
+<% [:wiki, :roadmap].each do |permission| %>
   <%= render :partial => permission.to_s if User.current.allowed_to?(:"custom_overview_#{permission}", @project) %>
 <% end %>
 

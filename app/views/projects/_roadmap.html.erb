@@ -1,1 +1,5 @@
-<%= @roadmap %>
+<div class="custom-overview roadmap">
+  <% @versions.each do |version| %>
+    <%= render :partial => "roadmap_version", :locals => { :version => version } %>
+  <% end %>
+</div>

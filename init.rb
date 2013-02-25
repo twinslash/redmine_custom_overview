@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_custom_overview do
   url         'https://github.com/twinslash/redmine_custom_overview'
   author_url  'http://twinslash.com'
 
-  project_module :overview do
+  project_module :custom_overview do
     permission :custom_overview_wiki, { :custom_overview_wiki => nil }
     permission :custom_overview_wall, { :custom_overview_wall => nil }
     permission :custom_overview_activity, { :custom_overview_activity => nil }

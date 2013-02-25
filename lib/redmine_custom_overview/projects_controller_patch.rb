@@ -7,6 +7,8 @@ module CustomOverview
       base.class_eval do
         # TODO maybe skip some filters to make loading faster
 
+        # helper :versions
+
         def show
           [:wiki, :wall, :activity, :roadmap, :members, :latest_news, :spent_time].each do |permission|
             send("load_#{permission}") if User.current.allowed_to?(:"custom_overview_#{permission}", @project)
@@ -50,6 +52,7 @@ module CustomOverview
       end
 
       def load_roadmap
+        @versions = @project.shared_versions.open.visible.all(:conditions => 'effective_date IS NOT NULL')
       end
 
       def load_members

@@ -1,39 +1,63 @@
-<!-- <div class="contextual"> -->
-<div>
-  <%= link_to(l(:button_edit), edit_version_path(version), :class => 'icon icon-edit') if User.current.allowed_to?(:manage_versions, version.project) %>
-  <%= link_to_if_authorized(l(:button_edit_associated_wikipage, :page_title => version.wiki_page_title), {:controller => 'wiki', :action => 'edit', :project_id => version.project, :id => Wiki.titleize(version.wiki_page_title)}, :class => 'icon icon-edit') unless version.wiki_page_title.blank? || version.project.wiki.nil? %>
-  <%= delete_link version_path(version, :back_url => url_for(:controller => 'versions', :action => 'index', :project_id => version.project)) if User.current.allowed_to?(:manage_versions, version.project) %>
-  <%= call_hook(:view_versions_show_contextual, { :version => version, :project => @project }) %>
-</div>
-
-<h2><%= h(version.name) %></h2>
-<div id="roadmap">
-  <%= render :partial => 'versions/overview', :locals => {:version => version} %>
-  <%= render(:partial => "wiki/content", :locals => {:content => version.wiki_page.content}) if version.wiki_page %>
-
-  <div id="version-summary">
-    <% if version.estimated_hours > 0 || User.current.allowed_to?(:view_time_entries, @project) %>
-      <fieldset class="time-tracking"><legend><%= l(:label_time_tracking) %></legend>
-        <table>
-          <tr>
-            <th><%= l(:field_estimated_hours) %></th>
-            <td class="total-hours"><%= html_hours(l_hours(version.estimated_hours)) %></td>
-          </tr>
-          <% if User.current.allowed_to?(:view_time_entries, @project) %>
-            <tr>
-              <th><%= l(:label_spent_time) %></th>
-              <td class="total-hours"><%= html_hours(l_hours(version.spent_hours)) %></td>
-            </tr>
-          <% end %>
-        </table>
-      </fieldset>
-    <% end %>
-
-    <div id="status_by">
-      <%= render_issue_status_by(version, params[:status_by]) if version.fixed_issues.count > 0 %>
-    </div>
+<div class="roadmap-element">
+  <div class="links">
+    <%= link_to(l(:button_edit), edit_version_path(version), :class => 'icon icon-edit') if User.current.allowed_to?(:manage_versions, version.project) %>
+    <%= link_to_if_authorized(l(:button_edit_associated_wikipage, :page_title => version.wiki_page_title), {:controller => 'wiki', :action => 'edit', :project_id => version.project, :id => Wiki.titleize(version.wiki_page_title)}, :class => 'icon icon-edit') unless version.wiki_page_title.blank? || version.project.wiki.nil? %>
+    <%= delete_link version_path(version, :back_url => url_for(:controller => 'versions', :action => 'index', :project_id => version.project)) if User.current.allowed_to?(:manage_versions, version.project) %>
+    <%= call_hook(:view_versions_show_contextual, { :version => version, :project => @project }) %>
   </div>
 
-</div>
+  <h2><%= h(version.name) %> <small><%=h version.description %></small></h2>
 
-<%#= call_hook :view_versions_show_bottom, :version => version %>
+  <div id="status_by">
+    <%= render_issue_status_by(version, params[:status_by]) if version.fixed_issues.count > 0 %>
+  </div>
+
+  <fieldset class="time-tracking">
+    <table>
+    <tr class="date">
+      <th>
+        <% if version.completed? %>
+          <b>Completed</b>
+        <% elsif version.effective_date %>
+          <%= due_date_distance_in_words(version.effective_date) %>
+        <% end %>
+      </th>
+      <td class="total-hours"><%= format_date(version.effective_date) %></td>
+    </tr>
+    <% if version.estimated_hours > 0 || User.current.allowed_to?(:view_time_entries, @project) %>
+      <tr>
+        <th><%= l(:field_estimated_hours) %></th>
+        <td class="total-hours"><%= html_hours(l_hours(version.estimated_hours)) %></td>
+      </tr>
+      <% if User.current.allowed_to?(:view_time_entries, @project) %>
+        <tr>
+          <th><%= l(:label_spent_time) %></th>
+          <td class="total-hours"><%= html_hours(l_hours(version.spent_hours)) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </table>
+  </fieldset>
+
+
+  <% if version.issues_count > 0 %>
+      <%= progress_bar([version.closed_pourcent, version.completed_pourcent], :width => '49%', :legend => ('%0.0f%' % version.completed_pourcent)) %>
+      <p class="progress-info">
+          <%= link_to(l(:label_x_issues, :count => version.issues_count),
+                project_issues_path(version.project, :status_id => '*', :fixed_version_id => version, :set_filter => 1)) %>
+          &nbsp;
+          (<%= link_to_if(version.closed_issues_count > 0, l(:label_x_closed_issues_abbr, :count => version.closed_issues_count),
+                 project_issues_path(version.project, :status_id => 'c', :fixed_version_id => version, :set_filter => 1)) %>
+          &#8212;
+          <%= link_to_if(version.open_issues_count > 0, l(:label_x_open_issues_abbr, :count => version.open_issues_count),
+                project_issues_path(version.project, :status_id => 'o', :fixed_version_id => version, :set_filter => 1)) %>)
+      </p>
+  <% else %>
+      <p class="progress-info"><%= l(:label_roadmap_no_issues) %></p>
+  <% end %>
+
+  <%= render(:partial => "wiki/content", :locals => {:content => version.wiki_page.content}) if version.wiki_page %>
+
+
+
+</div>

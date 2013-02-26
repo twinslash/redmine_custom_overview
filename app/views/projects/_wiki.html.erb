@@ -1,3 +1,5 @@
 <div class="custom-overview wiki">
-  <%= render(:partial => "wiki/content", :locals => {:content => @content}) %>
+  <% if @content %>
+    <%= render(:partial => "wiki/content", :locals => {:content => @content}) %>
+  <% end %>
 </div>

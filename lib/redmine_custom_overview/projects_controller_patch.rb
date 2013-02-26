@@ -5,27 +5,32 @@ module CustomOverview
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        # TODO maybe skip some filters to make loading faster
-
         helper :versions
 
-        def show
-          [:wiki, :roadmap, :members, :latest_news, :spent_time].each do |permission|
-            send("load_#{permission}") if User.current.allowed_to?(:"custom_overview_#{permission}", @project)
-          end
-        end
+        alias_method_chain :show, :custom_overview
 
       end
     end
 
     module InstanceMethods
 
+      def show_with_custom_overview
+        if @project.enabled_module_names.include?('custom_overview')
+          [:wiki, :roadmap, :members, :latest_news, :spent_time].each do |permission|
+            send("load_#{permission}") if User.current.allowed_to?(:"custom_overview_#{permission}", @project)
+          end
+          render 'custom_overview'
+        else
+          show_without_custom_overview
+        end
+      end
+
       private
 
       def load_wiki
         @wiki = @project.wiki
         @page = @wiki.find_page('Overview') || @wiki.find_page('overview')
-        @content = @page.content
+        @content = @page.try(:content)
       end
 
       def load_roadmap

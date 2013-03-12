@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag 'redmine_custom_overview', :plugin => 'redmine_custom_overview' %>
+
 <% [:wiki, :roadmap].each do |permission| %>
   <%= render :partial => permission.to_s if User.current.allowed_to?(:"custom_overview_#{permission}", @project) %>
 <% end %>
@@ -7,4 +9,3 @@
     <%= render :partial => permission.to_s if User.current.allowed_to?(:"custom_overview_#{permission}", @project) %>
   <% end %>
 <% end %>
-

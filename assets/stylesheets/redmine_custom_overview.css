@@ -1,0 +1,52 @@
+/*Custom Overview*/
+
+.custom-overview.wiki {
+  width: 98%;
+  overflow: auto;
+  margin: 0 0 25px 0;
+}
+
+.custom-overview.roadmap {
+  padding: 5px;
+}
+
+.custom-overview.roadmap .roadmap-element{
+  margin: 0 0 25px 0;
+}
+.custom-overview.roadmap .roadmap-element .links{
+  float: right;
+  margin: 14px 0 0 0;
+  font-size: 90%;
+}
+.custom-overview.roadmap .roadmap-element h2{
+  border-bottom: 1px dotted #d7d7d7;
+}
+
+.custom-overview.roadmap .roadmap-element h2 small{
+  font-size: 70%;
+  font-weight: normal;
+}
+
+.custom-overview.roadmap .roadmap-element .time-tracking table th {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.custom-overview.roadmap .roadmap-element fieldset.time-tracking{
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.custom-overview.roadmap .roadmap-element .time-tracking table tr.date {
+  font-size: 130%;
+  font-weight: bold;
+}
+
+.custom-overview.roadmap .roadmap-element #status_by{
+  width: 45%;
+  float: right;
+}
+
+#sidebar .custom-overview{
+  margin-bottom: 20px;
+}
